@@ -24,3 +24,6 @@ proguard/
 
 # Log Files
 *.log
+BillMall/.classpath
+BillMall/.project
+BillMall/project.properties
