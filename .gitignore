@@ -25,3 +25,10 @@ proguard/
 # Log Files
 *.log
 
+bin/
+gen/
+
+BillMall/.classpath
+BillMall/.classpath
+BillMall/.settings/org.eclipse.jdt.core.prefs
+BillMall/.classpath
