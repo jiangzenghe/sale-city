@@ -10,11 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.GsonBuilder;
-import com.myapp.getlocation.db.EntityHelper;
-import com.myapp.getlocation.http.DefaultHttpService;
-import com.myapp.getlocation.http.HttpService;
-import com.myapp.getlocation.util.ActivitysManager;
-import com.myapp.getlocation.util.Util;
+import com.tiger.billmall.db.EntityHelper;
+import com.tiger.billmall.http.HttpService;
+import com.tiger.billmall.util.ActivitysManager;
+import com.tiger.billmall.util.Util;
 
 /**
  * APP入口

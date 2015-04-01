@@ -3,6 +3,11 @@ package com.tiger.billmall;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.tiger.billmall.apllication.ApplicationInitializationChain;
+import com.tiger.billmall.apllication.HttpServiceComponentInitialization;
+import com.tiger.billmall.apllication.SQLiteDataBaseInitialization;
+import com.tiger.billmall.apllication.SynchronismSupport;
+import com.tiger.billmall.util.AppConfigFileLoader;
 
 public class BillMallApplication extends Application {
 

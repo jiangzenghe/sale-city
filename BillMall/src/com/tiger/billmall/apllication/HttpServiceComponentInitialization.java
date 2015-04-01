@@ -5,9 +5,8 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.myapp.getlocation.R;
-import com.myapp.getlocation.activity.Activity;
-import com.myapp.getlocation.http.DefaultHttpService;
+import com.tiger.billmall.activity.Activity;
+import com.tiger.billmall.http.DefaultHttpService;
 /**
 * 应用初始化远程连接加载器
 * <p>  </p>

@@ -8,9 +8,9 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.myapp.getlocation.db.EntityHelper;
-import com.myapp.getlocation.util.AppConfigFileLoader;
-import com.myapp.getlocation.util.Util;
+import com.tiger.billmall.db.EntityHelper;
+import com.tiger.billmall.util.AppConfigFileLoader;
+import com.tiger.billmall.util.Util;
 /**
 * 应用初始化数据库连接加载器
 * <p>  </p>
