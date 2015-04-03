@@ -22,7 +22,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+
+import com.tiger.billmall.activity.Activity;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -263,6 +266,13 @@ public class Util {
 		return getter;
 	}
 
+	/** 获取屏幕的宽度 */
+	public final static int getWindowsWidth(Activity activity) {
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		return dm.widthPixels;
+	}
+	
 	/**
 	 * 获取Activity中的meta-data.
 	 *
