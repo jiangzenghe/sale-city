@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
 	private RelativeLayout rl_column;
 	private ViewPager mViewPager;
 	/** 用户选择的新闻分类列表*/
-//	private ArrayList<ChannelItem> userChannelList=new ArrayList<ChannelItem>();
+	private ArrayList<String> channelList=new ArrayList<String>();
 	/** 当前选中的栏目*/
 	private int columnSelectIndex = 0;
 	/** 左阴影部分*/
@@ -63,7 +63,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_mainmall);
 //		setActivityHeaderTitle("Test");
 		
-//		userChannelList = new ArrayList<ChannelItem>();
+		channelList = new ArrayList<String>();
+		channelList.add("首页");
+		channelList.add("首页");
+		channelList.add("首页");
+		channelList.add("首页");
 		mScreenWidth = Util.getWindowsWidth(this);
 		mItemWidth = mScreenWidth / 5;// 一个Item宽度为屏幕的1/6
 		initView();
@@ -75,8 +79,6 @@ public class MainActivity extends Activity {
 		mRadioGroup_content = (LinearLayout) findViewById(R.id.mRadioGroup_content);
 		rl_column = (RelativeLayout) findViewById(R.id.rl_column);
 		mViewPager = (ViewPager) findViewById(R.id.mViewPager);
-		shade_left = (ImageView) findViewById(R.id.shade_left);
-		shade_right = (ImageView) findViewById(R.id.shade_right);
 		setChangelView();
 		initColumnData();
 	}
