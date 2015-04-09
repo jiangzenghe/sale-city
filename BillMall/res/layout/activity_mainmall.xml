@@ -24,12 +24,14 @@
         android:baselineAligned="false"
         android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:id="@+id/rl_column"
-            android:layout_width="match_parent"
-            android:layout_height="40.0dip"
-            android:layout_weight="1.0" >
-        </RelativeLayout>
+		<LinearLayout
+		 android:id="@+id/mRadioGroup_content"
+		 android:layout_width="fill_parent"
+		 android:layout_height="40.0dip"
+		 android:gravity="center_vertical"
+		 android:orientation="horizontal"
+		 android:paddingLeft="10.0dip"
+		 android:paddingRight="10.0dip" />
     </LinearLayout>
 
 </LinearLayout>
