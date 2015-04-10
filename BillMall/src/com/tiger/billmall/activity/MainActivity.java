@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tiger.billmall.R;
+import com.tiger.billmall.adapter.TestFragmentPagerAdapter;
 import com.tiger.billmall.fragment.TestListFragment;
 import com.tiger.billmall.util.Util;
 
@@ -138,8 +139,8 @@ public class MainActivity extends Activity {
 				newfragment.setArguments(data);
 				fragments.add(newfragment);
 			}
-//			NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(getSupportFragmentManager(), fragments);
-//			mViewPager.setAdapter(mAdapetr);
+			TestFragmentPagerAdapter mAdapetr = new TestFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+			mViewPager.setAdapter(mAdapetr);
 			mViewPager.setOnPageChangeListener(pageListener);
 		}
 		

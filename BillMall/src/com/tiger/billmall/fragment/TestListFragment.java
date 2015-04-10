@@ -1,21 +1,11 @@
 package com.tiger.billmall.fragment;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.SoftReference;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.conn.HttpHostConnectException;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -26,13 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.tiger.billmall.R;
 import com.tiger.billmall.activity.MainActivity;
+import com.tiger.billmall.widgets.ImageIndicator;
+import com.tiger.billmall.widgets.ImageIndicator.IndicatorOnItemClickListener;
 
 /**
  * 列表页面
@@ -42,18 +33,19 @@ import com.tiger.billmall.activity.MainActivity;
  * <p>2014-12-09                  new</p>
  * <p>  </p>
  */
-public class TestListFragment extends Fragment {
+public class TestListFragment extends Fragment implements IndicatorOnItemClickListener {
 	
 	private String TAG = TestListFragment.class.getSimpleName();
 	
 	private MainActivity activity;
-	private ListView newsListView;//下拉列表
+	private ListView testListView;//下拉列表
 	private PullToRefreshListView mPullRefreshListView;
 	
-	private List<String> titles;//置顶新闻标题list
-	private List<Drawable> images;//置顶新闻图片list
+	private List<String> titles;//置顶标题list
+	private List<Drawable> images;//置顶图片list
 
 	private Bitmap bitmap;
+	private ImageIndicator imageIndicator;
 	
 	@SuppressWarnings("unused")
 	private String channelName;
@@ -76,9 +68,8 @@ public class TestListFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_test_list, null);
 		mPullRefreshListView = (PullToRefreshListView)view.findViewById(R.id.road_news_listview);
-		newsListView = mPullRefreshListView.getRefreshableView();
+		testListView = mPullRefreshListView.getRefreshableView();
 		
-			
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -101,8 +92,8 @@ public class TestListFragment extends Fragment {
 			}
 		});
 		
-		//获取所有置顶新闻
-		getTopNews();
+		//获取所有置顶
+		getPictures();
 		// 获取底部事件列表内容
 		return view;
 	}
@@ -113,8 +104,36 @@ public class TestListFragment extends Fragment {
 	}
 	//获取所有置顶新闻 标题 图片
 	@SuppressLint("SdCardPath")
-	private void getTopNews() {
+	private void getPictures() {
+		LayoutInflater layoutInflater = LayoutInflater.from((MainActivity)getActivity());
+		View rootView = layoutInflater.inflate(R.layout.layout_test_listview_header, null);
 		
+		titles = new ArrayList<String>();
+		images = new ArrayList<Drawable>();
+		
+		imageIndicator = (ImageIndicator)rootView.findViewById(R.id.road_news_imageIndicator);
+		imageIndicator.setIndicatorOnItemClickListener(TestListFragment.this);
+//		Drawable object = new Drawable(R.drawable.image01);
+		Drawable object = 
+				this.getResources().getDrawable(R.drawable.image01);
+		images.add(object);
+		Drawable object1 = 
+				this.getResources().getDrawable(R.drawable.image02);
+		images.add(object1);
+		Drawable object2 = 
+				this.getResources().getDrawable(R.drawable.image03);
+		images.add(object2);
+		Drawable object3 = 
+				this.getResources().getDrawable(R.drawable.image04);
+		images.add(object3);
+		
+		imageIndicator.setSlideImages(images);
+		imageIndicator.setSlideTitles(titles);
+	}
+	
+	@Override
+	public void onIndicatorItemClick(int position) {
+		// TODO Auto-generated method stub
 	}
 	
 	/** 
