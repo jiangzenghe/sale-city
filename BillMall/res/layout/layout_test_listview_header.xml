@@ -4,6 +4,12 @@
     android:orientation="vertical"
     android:id="@+id/road_news_top" >
 
+    <TextView
+        android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="aaaaaa"
+            android:textSize="14sp"/>
+    
     <com.tiger.billmall.widgets.ImageIndicator
             android:id="@+id/road_news_imageIndicator"
             android:layout_width="match_parent"

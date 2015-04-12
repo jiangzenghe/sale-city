@@ -6,7 +6,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +21,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.tiger.billmall.R;
 import com.tiger.billmall.activity.MainActivity;
+import com.tiger.billmall.adapter.TestAdapter;
+import com.tiger.billmall.entity.PhoneShow;
 import com.tiger.billmall.widgets.ImageIndicator;
 import com.tiger.billmall.widgets.ImageIndicator.IndicatorOnItemClickListener;
 
@@ -39,7 +40,9 @@ public class TestListFragment extends Fragment implements IndicatorOnItemClickLi
 	
 	private MainActivity activity;
 	private ListView testListView;//下拉列表
+	private ArrayList<PhoneShow> mDatas;//数据源
 	private PullToRefreshListView mPullRefreshListView;
+	private TestAdapter adapter;//适配器
 	
 	private List<String> titles;//置顶标题list
 	private List<Drawable> images;//置顶图片list
@@ -69,6 +72,9 @@ public class TestListFragment extends Fragment implements IndicatorOnItemClickLi
 		View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_test_list, null);
 		mPullRefreshListView = (PullToRefreshListView)view.findViewById(R.id.road_news_listview);
 		testListView = mPullRefreshListView.getRefreshableView();
+		mDatas = new ArrayList<PhoneShow>();
+		adapter = new TestAdapter(activity, mDatas);
+		testListView.setAdapter(adapter);
 		
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 			@Override
@@ -105,30 +111,40 @@ public class TestListFragment extends Fragment implements IndicatorOnItemClickLi
 	//获取所有置顶新闻 标题 图片
 	@SuppressLint("SdCardPath")
 	private void getPictures() {
-		LayoutInflater layoutInflater = LayoutInflater.from((MainActivity)getActivity());
+		LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 		View rootView = layoutInflater.inflate(R.layout.layout_test_listview_header, null);
+//		View rootView = layoutInflater.inflate(R.layout.fragment_test, null);
+		/**
+		 * 首次增加时，添加置顶新闻，之后至改变置顶新闻的数据源。
+		 */
+		if(testListView.getHeaderViewsCount()==1){
+			testListView.addHeaderView(rootView);
+		}
 		
 		titles = new ArrayList<String>();
 		images = new ArrayList<Drawable>();
 		
 		imageIndicator = (ImageIndicator)rootView.findViewById(R.id.road_news_imageIndicator);
 		imageIndicator.setIndicatorOnItemClickListener(TestListFragment.this);
-//		Drawable object = new Drawable(R.drawable.image01);
 		Drawable object = 
 				this.getResources().getDrawable(R.drawable.image01);
 		images.add(object);
+		titles.add("image00");
 		Drawable object1 = 
 				this.getResources().getDrawable(R.drawable.image02);
 		images.add(object1);
+		titles.add("image01");
 		Drawable object2 = 
 				this.getResources().getDrawable(R.drawable.image03);
 		images.add(object2);
+		titles.add("image02");
 		Drawable object3 = 
 				this.getResources().getDrawable(R.drawable.image04);
 		images.add(object3);
-		
+		titles.add("image03");
 		imageIndicator.setSlideImages(images);
 		imageIndicator.setSlideTitles(titles);
+		imageIndicator.initViews();
 	}
 	
 	@Override

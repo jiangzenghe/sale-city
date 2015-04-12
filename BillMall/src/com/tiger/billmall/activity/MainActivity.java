@@ -94,12 +94,12 @@ public class MainActivity extends Activity {
 			int count =  channelList.size();
 			for(int i = 0; i< count; i++){
 				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth , LayoutParams.WRAP_CONTENT);
-				params.leftMargin = 5;
-				params.rightMargin = 5;
+//				params.leftMargin = 5;
+//				params.rightMargin = 5;
 				TextView columnTextView = new TextView(this);
 				columnTextView.setBackgroundResource(R.drawable.radio_buttong_bg);
 				columnTextView.setGravity(Gravity.CENTER);
-				columnTextView.setPadding(5, 5, 5, 5);
+//				columnTextView.setPadding(5, 5, 5, 5);
 				columnTextView.setId(i);
 				columnTextView.setText(channelList.get(i));
 				columnTextView.setTextColor(getResources().getColorStateList(R.color.top_category_scroll_text_color_day));
@@ -136,6 +136,7 @@ public class MainActivity extends Activity {
 	    		data.putString("text", channelList.get(i));
 	    		data.putString("id", i+"");
 				TestListFragment newfragment = new TestListFragment();
+//	    		TestFragment newfragment = new TestFragment();
 				newfragment.setArguments(data);
 				fragments.add(newfragment);
 			}
