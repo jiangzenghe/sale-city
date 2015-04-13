@@ -19,10 +19,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.tiger.billmall.R;
 import com.tiger.billmall.activity.TabActivity;
-import com.tiger.billmall.adapter.CopyOfTestAdapter;
-import com.tiger.billmall.adapter.TypedAdapter;
-import com.tiger.billmall.adapter.binder.TextViewBinder;
-import com.tiger.billmall.adapter.impl.ClassAttachmentImpl;
+import com.tiger.billmall.adapter.ProductGroupAdapter;
+import com.tiger.billmall.entity.Product;
 import com.tiger.billmall.entity.ProductLay;
 import com.tiger.billmall.widgets.ImageIndicator;
 import com.tiger.billmall.widgets.ImageIndicator.IndicatorOnItemClickListener;
@@ -49,7 +47,7 @@ public class TestFragment extends Fragment implements IndicatorOnItemClickListen
 	private ImageIndicator imageIndicator;
 	private ListView multiListView;
 	
-	private CopyOfTestAdapter adapter;//适配器
+	private ProductGroupAdapter adapter;//适配器
 	private String channelName;
 	private String channelId;
 	
@@ -73,8 +71,8 @@ public class TestFragment extends Fragment implements IndicatorOnItemClickListen
 		testListView = mPullRefreshListView.getRefreshableView();
 		
 		mDatas = new ArrayList<ProductLay>();
-//		adapter = new CopyOfTestAdapter(activity, mDatas);
-//		testListView.setAdapter(adapter);
+		adapter = new ProductGroupAdapter(activity, mDatas);
+		testListView.setAdapter(adapter);
 		
 		mPullRefreshListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
 			@Override
@@ -105,24 +103,21 @@ public class TestFragment extends Fragment implements IndicatorOnItemClickListen
 	//获取数据
 	private void getData(){
 		for (int i = 0; i <= 5; i++) {
-			ProductLay temp = new ProductLay();
-			temp.setDeviceId("" + i);
-			temp.setDeviceLabel("设备" + i);
-			byte[] imageByteArray = { 0, 1, 2, 3, 4 };
-			temp.setPicBytes(imageByteArray);
-			mDatas.add(temp);
+			ProductLay tempGroup = new ProductLay();
+			tempGroup.setDeviceGroupId("组名"+i);
+			tempGroup.setDeviceGroup(new ArrayList<Product>());
+			for(int j=0;j<=i;j++) {
+				Product temp = new Product();
+				temp.setDeviceId("" + i + j);
+				temp.setDeviceLabel("设备" + i);
+				byte[] imageByteArray = { 0, 1, 2, 3, 4 };
+				temp.setPicBytes(imageByteArray);
+				tempGroup.getDeviceGroup().add(temp);
+			}
+			mDatas.add(tempGroup);
 		}
-
-		ClassAttachmentImpl<ProductLay> attachments = new ClassAttachmentImpl<ProductLay>();
-		attachments.addBinderMapItem(R.id.device_center_id, "deviceId",new TextViewBinder());
-
-		attachments.addBinderMapItem(R.id.device_center_title, "deviceLabel",new TextViewBinder());
-
-		TypedAdapter<ProductLay> deviceAdapter = new TypedAdapter<ProductLay>(activity, mDatas, R.layout.device_item);
-		deviceAdapter.setBinder(attachments);
-
-		testListView.setAdapter(deviceAdapter);
-		deviceAdapter.notifyDataSetChanged();
+		
+		adapter.notifyDataSetChanged();
 	}
 	//获取所有置顶新闻 标题 图片
 		@SuppressLint("SdCardPath")
