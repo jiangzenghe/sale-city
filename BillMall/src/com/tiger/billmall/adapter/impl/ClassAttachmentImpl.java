@@ -1,4 +1,4 @@
-package com.tiger.billmall.adapter;
+package com.tiger.billmall.adapter.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,8 @@ import java.util.Set;
 import android.content.Context;
 import android.view.View;
 
+import com.tiger.billmall.adapter.IAttachment;
+import com.tiger.billmall.adapter.binder.ViewBinder;
 import com.tiger.billmall.util.StringUtils;
 /**
  * 一个类型化的列表适配器接口实现类，实现通过类处理方式进行控件与实体类的绑定

@@ -1,9 +1,8 @@
-package com.tiger.billmall.adapter;
+package com.tiger.billmall.adapter.binder;
 
 import android.view.View;
 /**
  * 视图组件绑定器接口，这个接口用于定义将一个视图组件与一个对象的属性绑定在一起。
- *
  */
 public interface ViewBinder extends Cloneable {
 	/**

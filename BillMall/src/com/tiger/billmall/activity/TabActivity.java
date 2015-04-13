@@ -5,11 +5,8 @@ package com.tiger.billmall.activity;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -22,9 +19,8 @@ import android.widget.TextView;
 
 import com.tiger.billmall.R;
 import com.tiger.billmall.adapter.TestFragmentPagerAdapter;
-import com.tiger.billmall.fragment.TestListFragment;
+import com.tiger.billmall.fragment.TestFragment;
 import com.tiger.billmall.util.Util;
-import com.tiger.billmall.widgets.ImageIndicator;
 import com.tiger.billmall.widgets.ImageIndicator.IndicatorOnItemClickListener;
 
 /**
@@ -62,8 +58,8 @@ public class TabActivity extends Activity implements IndicatorOnItemClickListene
 	
 	/** 初始化layout控件*/
 	private void initView() {
-		mRadioGroup_content = (LinearLayout) findViewById(R.id.mRadioGroup_content);
-		mViewPager = (ViewPager) findViewById(R.id.mViewPager);
+		mRadioGroup_content = (LinearLayout) findViewById(R.id.mmRadioGroup_content);
+		mViewPager = (ViewPager) findViewById(R.id.mmViewPager);
 		setChangelView();
 		initColumnData();
 	}
@@ -78,19 +74,51 @@ public class TabActivity extends Activity implements IndicatorOnItemClickListene
 	
 	/** 获取Column栏目 数据*/
 	private void initColumnData() {
-//		userChannelList.add(new ChannelItem(1, "推荐", 1, 0));
-//		userChannelList.add(new ChannelItem(2, "热点", 2, 1));
-//		userChannelList.add(new ChannelItem(3, "杭州", 3, 1));
-//		userChannelList.add(new ChannelItem(4, "时尚", 4, 1));
-//		userChannelList.add(new ChannelItem(5, "科技", 5, 1));
-//		userChannelList.add(new ChannelItem(6, "体育", 6, 1));
-//		userChannelList.add(new ChannelItem(7, "军事", 7, 1));
-//		userChannelList.add(new ChannelItem(8, "财经", 1, 1));
 		
 		initTabColumn();
+		initFragment();
 	}
 	
+	/** 
+	 *  初始化Fragment
+	 * */
+	private void initFragment() {
+		fragments.clear();//清空
+		int count =  channelList.size();
+		for(int i = 0; i< count;i++){
+			Bundle data = new Bundle();
+    		data.putString("text", channelList.get(i));
+    		data.putString("id", i+"");
+			TestFragment newfragment = new TestFragment();
+//    		TestFragment newfragment = new TestFragment();
+			newfragment.setArguments(data);
+			fragments.add(newfragment);
+		}
+		TestFragmentPagerAdapter mAdapetr = new TestFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+		mViewPager.setAdapter(mAdapetr);
+		mViewPager.setOnPageChangeListener(pageListener);
+	}
 
+	/** 
+	 *  ViewPager切换监听方法
+	 * */
+	public OnPageChangeListener pageListener= new OnPageChangeListener(){
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+			mViewPager.setCurrentItem(position);
+			selectTab(position);
+		}
+	};
+	
 	/** 
 	 *  初始化Column栏目项
 	 * */
