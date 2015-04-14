@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.tiger.billmall.R;
 import com.tiger.billmall.adapter.TestFragmentPagerAdapter;
+import com.tiger.billmall.fragment.SearchFragment;
 import com.tiger.billmall.fragment.TestFragment;
 import com.tiger.billmall.util.Util;
 import com.tiger.billmall.widgets.ImageIndicator.IndicatorOnItemClickListener;
@@ -87,12 +88,19 @@ public class TabActivity extends Activity implements IndicatorOnItemClickListene
 		int count =  channelList.size();
 		for(int i = 0; i< count;i++){
 			Bundle data = new Bundle();
-    		data.putString("text", channelList.get(i));
-    		data.putString("id", i+"");
-			TestFragment newfragment = new TestFragment();
+			data.putString("text", channelList.get(i));
+			data.putString("id", i+"");
+			if(i==1) {
+				SearchFragment searchfragment = new SearchFragment();
+//	    		TestFragment newfragment = new TestFragment();
+				searchfragment.setArguments(data);
+				fragments.add(searchfragment);
+			} else {
+				TestFragment newfragment = new TestFragment();
 //    		TestFragment newfragment = new TestFragment();
-			newfragment.setArguments(data);
-			fragments.add(newfragment);
+				newfragment.setArguments(data);
+				fragments.add(newfragment);
+			}
 		}
 		TestFragmentPagerAdapter mAdapetr = new TestFragmentPagerAdapter(getSupportFragmentManager(), fragments);
 		mViewPager.setAdapter(mAdapetr);

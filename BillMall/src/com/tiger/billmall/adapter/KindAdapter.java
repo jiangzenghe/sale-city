@@ -17,7 +17,6 @@ import com.tiger.billmall.activity.TabActivity;
 import com.tiger.billmall.adapter.binder.TextViewBinder;
 import com.tiger.billmall.adapter.impl.ClassAttachmentImpl;
 import com.tiger.billmall.entity.Product;
-import com.tiger.billmall.entity.ProductLay;
 import com.tiger.billmall.widgets.GridView;
 
 /**
@@ -31,17 +30,20 @@ import com.tiger.billmall.widgets.GridView;
  * <p>             new</p>
  * <p>  </p>
  */
-public class ProductGroupAdapter extends BaseAdapter{
+public class KindAdapter extends BaseAdapter{
 	
 
-	private ArrayList<ProductLay> list;
+	private ArrayList<String> list;
 	private LayoutInflater inflater = null;
 	private Activity activity;
 	
-	public ProductGroupAdapter(Activity activity, ArrayList<ProductLay> list) {
+	public KindAdapter(Activity activity, ArrayList<String> list) {
 		this.list = list;
 		this.inflater = LayoutInflater.from(activity);
 		this.activity = activity;
+		list = new ArrayList<String>();
+		list.add("1");
+		list.add("2");
 	}
 	
 
@@ -51,7 +53,7 @@ public class ProductGroupAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public ProductLay getItem(int position) {
+	public String getItem(int position) {
 		if (list != null && list.size() != 0) {
 			return list.get(position);
 		}
@@ -69,29 +71,27 @@ public class ProductGroupAdapter extends BaseAdapter{
 		final ViewHolder mHolder;
 		View view = convertView;
 		if (view == null) {
-			//一张图片的布局
-			view = inflater.inflate(R.layout.device_group_item, null);
+			view = inflater.inflate(R.layout.expandable_list_item, null);
 			mHolder = new ViewHolder();
-			//一张图片的布局
 			mHolder.gridView = (GridView)view.findViewById(R.id.grid_view);
-			mHolder.groupName = (TextView)view.findViewById(R.id.group_name);
+			mHolder.groupName = (TextView)view.findViewById(R.id.text);
 			view.setTag(mHolder);
 		} else {
 			mHolder = (ViewHolder) view.getTag();
 		}
 		//获取position对应的数据
-		ProductLay news = getItem(position);
-		mHolder.groupName.setText(news.getDeviceGroupId());
-		mHolder.gridView.setOnItemClickListener(new OnItemClickListener() {
+		String news = getItem(position);
+		mHolder.groupName.setText(news);
+		mHolder.gridView.setOnItemClickListener(new OnItemClickListener() {//二级图层短按事件，控制所点击子图层在地图上的隐藏or显示
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> parent, View v, int position,
+					long id) {
 				
 			}
-			
-		});
-		getData(mHolder.gridView, news.getDeviceGroup());
+        	
+        });
+		getData(mHolder.gridView);
 			
 //		bitmap.recycle();
 		return view;
@@ -99,8 +99,16 @@ public class ProductGroupAdapter extends BaseAdapter{
 	}
 	
 	//获取数据
-		private void getData(GridView gridView, ArrayList<Product> mDatas){
-			
+		private void getData(GridView gridView){
+			ArrayList<Product> mDatas = new ArrayList<Product>();
+			for(int i=0;i<2;i++) {
+				Product object = new Product();
+				object.setDeviceId(""+i);
+				object.setDeviceLabel("设备" + i);
+				byte[] imageByteArray = { 0, 1, 2, 3, 4 };
+				object.setPicBytes(imageByteArray);
+				mDatas.add(object);
+			}
 			ClassAttachmentImpl<Product> attachments = new ClassAttachmentImpl<Product>();
 			attachments.addBinderMapItem(R.id.device_center_id, "deviceId",new TextViewBinder());
 

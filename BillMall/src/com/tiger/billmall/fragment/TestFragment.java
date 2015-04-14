@@ -114,6 +114,10 @@ public class TestFragment extends Fragment implements IndicatorOnItemClickListen
 				temp.setPicBytes(imageByteArray);
 				tempGroup.getDeviceGroup().add(temp);
 			}
+			if(i%2==0) {
+				Product object = new Product();
+				tempGroup.getDeviceGroup().add(object);
+			}
 			mDatas.add(tempGroup);
 		}
 		

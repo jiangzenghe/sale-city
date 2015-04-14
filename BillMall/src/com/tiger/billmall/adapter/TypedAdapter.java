@@ -52,6 +52,10 @@ public class TypedAdapter<T> extends ArrayAdapter<T> {
 		}
 		// 获取数据bean
 		T bean = getItem(position);
+		//null就不绑定
+		if(bean==null) {
+			return view;
+		}
 		if(binder != null){
 			getBinder().attachToView(context, view, bean);
 		}
