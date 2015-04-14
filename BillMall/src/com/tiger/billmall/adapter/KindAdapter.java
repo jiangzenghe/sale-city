@@ -109,6 +109,13 @@ public class KindAdapter extends BaseAdapter{
 				object.setPicBytes(imageByteArray);
 				mDatas.add(object);
 			}
+			if(mDatas.size()%3!=0) {
+				int m = 3-mDatas.size()%3;
+				for(int i=0;i<m;i++) {
+					Product object = new Product();
+					mDatas.add(object);
+				}
+			}
 			ClassAttachmentImpl<Product> attachments = new ClassAttachmentImpl<Product>();
 			attachments.addBinderMapItem(R.id.device_center_id, "deviceId",new TextViewBinder());
 

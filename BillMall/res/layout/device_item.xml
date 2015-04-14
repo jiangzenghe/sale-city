@@ -15,8 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#ffa9a9a9"
-            android:layout_gravity="center"
-            android:src="@drawable/icon_gsjj" />
+            android:layout_gravity="center" />
+        <!--android:src="@drawable/icon_gsjj" -->
            <TextView
             android:id="@+id/device_center_id"
             android:layout_width="wrap_content"
